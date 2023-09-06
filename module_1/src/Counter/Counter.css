@@ -1,0 +1,19 @@
+ .counter-container {
+  padding: 24px;
+ }
+
+ .counter-result {
+  font-size:24px;
+  margin-bottom: 16px;
+ }
+
+ .counter-increaseButton,
+ .counter-decreaseButton {
+  font-size:20px;
+  padding: 8px;
+  background-color: #FFF;
+  border-radius: 3px;
+ }
+ .counter-decreaseButton {
+  margin: 8px;
+ }

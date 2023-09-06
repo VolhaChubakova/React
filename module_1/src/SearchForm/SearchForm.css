@@ -1,0 +1,33 @@
+.SearchForm-input {
+    width: 713px;
+    height: 57px;
+    margin: 24px;
+    padding: 17px 19px;
+    box-sizing: border-box;
+    background-color: #323232;
+    opacity: 70%;
+    font-family: 'Montserrat';
+    font-size: 20px;
+    line-height: 24.38px;
+    font-weight: 400;
+    color: #FFF;
+}
+
+.SearchForm-input::placeholder {
+    width: 288px;
+    height: 24px;
+    color: #FFF;
+    opacity: 30%;
+}
+
+.SearchForm-button {
+    width: 233px;
+    height: 57px;
+    margin: 24px 0px 0px 0px;
+    background-color: #F65261;
+    color: #FFF;
+    font-family: 'Montserrat';
+    font-size: 20px;
+    line-height: 24.38px;
+    font-weight: 400;
+}
