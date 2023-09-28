@@ -20,7 +20,7 @@ function SearchForm (props) {
                     props.onSearch(query)
                 }
             }}
-        ></input>
+        />
         <button 
             className='SearchForm-button'
             onClick={() => props.onSearch(query)}
