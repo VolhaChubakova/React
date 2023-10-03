@@ -12,9 +12,9 @@ const currentlySelectedArr = ['Documentary', 'Horror'];
 
 root.render(
   <React.StrictMode>
-    <Counter count={0}></Counter>
+    <Counter count={0}/>
     <SearchForm value={'Bohemian rhapsody'} onSearch={(value) => {}} />
-    <GenreSelect list={genres} currentlySelectedArr = {currentlySelectedArr} onSelect={(value) => {console.log('onSelect', value)}} ></GenreSelect>
+    <GenreSelect list={genres} currentlySelectedArr = {currentlySelectedArr} onSelect={(value) => {console.log('onSelect', value)}} />
   </React.StrictMode>
 );
 

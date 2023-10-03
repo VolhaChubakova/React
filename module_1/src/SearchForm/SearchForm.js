@@ -14,6 +14,8 @@ function SearchForm (props) {
             className='SearchForm-input'
             placeholder="What do you want to watch"
             value={query}
+            role='input'
+            data-testid='searchForm-input'
             onChange = {handleChange}
             onKeyDown = {(e) => {
                 if (e.code === 'Enter') {
@@ -23,6 +25,7 @@ function SearchForm (props) {
         />
         <button 
             className='SearchForm-button'
+            data-testid='searchForm-submitBtn'
             onClick={() => props.onSearch(query)}
         >SEARCH</button>
         </div>)
