@@ -11,6 +11,7 @@ class Counter extends React.Component {
   increaseButton = createElement(
     "button",
     {className: 'counter-increaseButton',
+    'data-testid':'increase-Btn',
     onClick: () => {
       this.setState((state) => {
         return {count: state.count + 1}
@@ -23,6 +24,7 @@ class Counter extends React.Component {
   decreaseButton = createElement (
     "button",
     {className: 'counter-decreaseButton',
+    'data-testid':'decrease-Btn',
      onClick: () => {
       this.setState((state) => {
         return {count: state.count - 1}
@@ -44,7 +46,8 @@ class Counter extends React.Component {
 
           createElement(
             "div",
-            {className: 'counter-result'},
+            {className: 'counter-result',
+            'data-testid':'counter-result'},
             this.state.count
           ),
 
