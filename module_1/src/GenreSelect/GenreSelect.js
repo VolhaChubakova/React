@@ -36,12 +36,12 @@ function GenreSelect (props) {
         </button>
 
         {isOpened ? (
-            <ul className='GenreSelect-list' role="list" >
+            <ul className='GenreSelect-list'>
                 {
-                    props.list.map((item) =>
-                    <li className='GenreSelect-item' key={item.toString()} role="listitem" >
-                        <input className='GenreSelect-checkbox' defaultChecked = {currentlySelectedArr.some(i => i === item)} type="checkbox" role="checkbox" onClick={(e) => {handleClick(e, item);}} />
-                    <label>{item}</label></li>
+                    props.list.map((item, index) =>
+                    <li className='GenreSelect-item' key={item.toString()}>
+                        <input className='GenreSelect-checkbox' id={'checkbox_'+index} defaultChecked = {currentlySelectedArr.some(i => i === item)} type="checkbox" onClick={(e) => {handleClick(e, item);}} />
+                    <label data-testid={'genre_'+index} htmlFor={'checkbox_'+index}>{item}</label></li>
                 )}
             </ul>
         ):<div></div>}

@@ -14,7 +14,6 @@ function SearchForm (props) {
             className='SearchForm-input'
             placeholder="What do you want to watch"
             value={query}
-            role='input'
             data-testid='searchForm-input'
             onChange = {handleChange}
             onKeyDown = {(e) => {
