@@ -10,32 +10,33 @@ describe('SearchForm', ()=> {
         expect(passedValue).toHaveValue('Superhero');
     });
 
-    test('onChange prop is called with proper value after click on Submit button', () => {
+    test('onChange prop is called with proper value after click on Submit button', async () => {
         const onSearch = jest.fn(); 
         render(<SearchForm value={'Superhero'} onSearch={onSearch}/>);
         const input = screen.getByTestId('searchForm-input');
         const submitButton = screen.getByTestId('searchForm-submitBtn');
-        act(()=> {
-            userEvent.clear(input);
-            userEvent.type(input, 'Great film');
-            userEvent.click(submitButton);
-            waitFor(()=>{
-                expect(onSearch).toHaveBeenCalledWith("Great film");
-            })
+        const user = userEvent.setup();
+        await act (async ()=> {
+            await user.clear(input);
+            await user.type(input, 'Great film');
+            await user.click(submitButton);
+        });
+        await waitFor(()=>{
+            expect(onSearch).toHaveBeenCalledWith('Great film');
         })
-        
     });
 
-    test('onChange prop is called after typing and clicking Enter key', ()=> {
+    test('onChange prop is called after typing and clicking Enter key', async ()=> {
         const onSearch = jest.fn();
         render(<SearchForm value={'Superhero'} onSearch={onSearch}/>);
         const input = screen.getByTestId('searchForm-input');
-        act(()=>{
-            userEvent.clear(input);
-            userEvent.type(input, "Amazing film{enter}");
-            waitFor(()=>{
-                expect(onSearch).toHaveBeenCalledWith("Amazing film");
-            })
+        const user = userEvent.setup();
+        await act (async ()=> {
+            await user.clear(input);
+            await user.type(input, "Amazing film{enter}");
+        });
+        await waitFor(()=>{
+            expect(onSearch).toHaveBeenCalledWith("Amazing film");
         })
     });
 });

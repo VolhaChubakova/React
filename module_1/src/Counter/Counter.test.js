@@ -9,25 +9,27 @@ describe('Counter', ()=>{
         expect('5').toEqual(renderedValue);
     });
 
-    test('click event decrements the displayed value', () => {
+    test('click event decrements the displayed value', async () => {
         render(<Counter count={7} />); 
-        act(()=> {
-            userEvent.click(screen.getByTestId('decrease-Btn'));
+        const user = userEvent.setup();
+        await act(async()=> {
+            await user.click(screen.getByTestId('decrease-Btn'));
+        });
+        await waitFor(()=>{
             const currentValue = screen.getByTestId('counter-result').innerHTML;
-             waitFor(()=>{
-                expect(currentValue).toBe('6');
-            })
-        });    
+            expect(currentValue).toBe('6');
+        })
     });
 
     test('click event increases the displayed value', async () => {
         render(<Counter count={7} />); 
-        act(()=> {
-            userEvent.click(screen.getByTestId('increase-Btn'));
+        const user = userEvent.setup();
+        await act(async()=>{
+            await user.click(screen.getByTestId('increase-Btn'));
+        });
+        await waitFor(()=>{
             const currentValue = screen.getByTestId('counter-result').innerHTML;
-             waitFor(()=>{
-                expect(currentValue).toBe('8');
-            })
-        });   
+            expect(currentValue).toBe('8');
+        });
     });
 })
