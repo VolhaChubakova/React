@@ -1,0 +1,20 @@
+.movieTile-container {
+    margin: 8px 24px;
+    width: 322px;
+}
+
+.movieTile-info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.movieTile-name {
+    font-size: 18px;
+    opacity: 70%;
+}
+
+.movieTile-description {
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 50%;
+}

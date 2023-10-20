@@ -9,7 +9,7 @@ function SearchForm (props) {
         setQuery(e.target.value)
     }
     
-    return (<div>
+    return (<div className='searchForm-container'>
         <input 
             className='SearchForm-input'
             placeholder="What do you want to watch"

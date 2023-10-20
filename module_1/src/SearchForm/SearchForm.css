@@ -1,5 +1,6 @@
 .SearchForm-input {
-    width: 713px;
+    min-width: 600px;
+    max-width: 713px;
     height: 57px;
     margin: 24px;
     padding: 17px 19px;
