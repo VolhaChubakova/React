@@ -1,0 +1,32 @@
+.sortControl-containter {
+    display: flex;
+    justify-content: space-between;
+    margin:64px 16px;
+    max-width: 325px;
+    background-color: #232323 ;
+    color:#FFFFFF;
+    max-height: 50px;
+    padding: 16px;
+
+}
+
+.sortControl-options {
+    font-family: 'Montserrat';
+    color: #FFFFFF;
+    font-size: 14px;
+    text-align: center;
+    background-color: #232323;
+    border: 0px solid transparent;
+}
+
+.sortControl-options:checked {
+    border: 0px solid transparent;
+}
+
+.sortControl-releaseDate {
+    font-size: 14px;
+}
+
+.sortControl-item {
+    padding: 8px;
+}
