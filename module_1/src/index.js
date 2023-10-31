@@ -7,6 +7,8 @@ import GenreSelect from './GenreSelect/GenreSelect';
 import MovieTile from './MovieTile/MovieTile';
 import MovieDetails from './MovieDetails/MovieDetails';
 import SortControl from './SortControl/SortControl';
+import Dialog from './Dialog/Dialog';
+import MovieForm from './MovieForm/MovieForm';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -29,6 +31,15 @@ const movieDetails = {
 };
 const options = ['RELEASE DATE', 'TITLE'];
 const currentSelection = 'TITLE';
+const movieData = {
+  title:'Moana',
+  url: 'https://www.moana.com',
+  genre: 'Comedy',
+  releaseDate: '11/14/2016',
+  rating: 7.6,
+  runtime: '1h 47 min',
+  overview: 'Moana Waialiki is a sea voyaging enthusiast and the only daughter of a chief in a long line of navigators. When her islands fishermen cant catch any fish and the crops fail, she learns that the demigod Maui caused the blight by stealing the heart of the goddess, Te Fiti. The only way to heal the island is to persuade Maui to return Te Fitis heart, so Moana sets off on an epic journey across the Pacific. The film is based on stories from Polynesian mythology.'
+}
 
 root.render(
   <React.StrictMode>
@@ -38,6 +49,8 @@ root.render(
     <MovieTile movieInfo={movieInfo} handleClick={()=> {}}/>
     <MovieDetails movieDetails={movieDetails} />
     <SortControl options={options} defaultValue={currentSelection} onChange={(value)=>{}}/>
+    <MovieForm movieData={movieData} onSubmit={()=>{}} isResultVisible={false}></MovieForm>
+    <Dialog isOpen={false} title={'ADD MOVIE'} onClose={()=>{}} content={<MovieForm movieData={movieData} onSubmit={()=>{}} isResultVisible={false}/>}></Dialog>
   </React.StrictMode>
 );
 

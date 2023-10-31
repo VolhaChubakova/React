@@ -9,7 +9,11 @@ describe('GenreSelect', ()=> {
     test ('component renders all genres passed in props', async ()=> {
         const onChange = jest.fn();
         render(<GenreSelect list={genres} currentlySelectedArr = {currentlySelectedArr} onSelect={onChange} />);
-        const labels = await screen.findAllByTestId('genre_', { exact: false });
+        const user = userEvent.setup();
+        await act(async()=> {
+            await user.click(screen.getByTestId('GenreSelect-dropdown'));
+        });
+        const labels =await screen.findAllByTestId('genre_', { exact: false });
         const labelsValues = labels.map((item)=>{
             return item.textContent;
         });
@@ -19,6 +23,10 @@ describe('GenreSelect', ()=> {
     test ('component highlights a selected genre passed in props', async()=> {
         const onChange = jest.fn();
         render(<GenreSelect list={genres} currentlySelectedArr = {currentlySelectedArr} onSelect={onChange} />);
+        const user = userEvent.setup();
+        await act(async()=> {
+            await user.click(screen.getByTestId('GenreSelect-dropdown'));
+        });
         const checkboxes = screen.getAllByRole('checkbox');
         const labels = await screen.findAllByTestId('genre_', { exact: false });
         const selectedItems = checkboxes.map((item, index)=>{
@@ -34,6 +42,9 @@ describe('GenreSelect', ()=> {
         const user = userEvent.setup();
         render(<GenreSelect list={genres} currentlySelectedArr = {currentlySelectedArr} onSelect={onChange} />);
         await act(async()=>{
+            await user.click(screen.getByTestId('GenreSelect-dropdown'));
+        });
+        await act(async() => {
             const labels = await screen.findAllByTestId('genre_', { exact: false });
             await user.click(labels[3]);   
         });

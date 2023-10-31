@@ -1,0 +1,109 @@
+.movieForm {
+    margin: 16px;
+    max-width: 860px;
+}
+
+.movieForm-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.movieForm-title,
+.movieForm-url,
+.movieForm-releaseDate,
+.movieForm-rating,
+.movieForm-runtime {
+    display: block;
+    padding: 18px;
+    margin: 8px 0 24px 0;
+    background-color: #323232;
+    color: #FFF;
+    opacity: 80%;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.movieForm label {
+    color: #F65261;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.movieForm-title,
+.movieForm-url {
+    display: block;
+    width: 525px;
+    box-sizing: border-box;
+}
+
+.movieForm-additionalInfo input {
+    width: 300px;
+    box-sizing: border-box;
+}
+
+.movieForm-calendarWrapper {
+    position: relative;
+}
+
+.movieForm-calendarIcon {
+    position: absolute;
+    top: 22px;
+    right: 16px;
+    color: #F65261;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.movieForm-calendar {
+    margin-top: 20px;
+}
+
+.movieForm-textarea {
+    display: block;
+    width: 860px;
+    box-sizing: border-box;
+    height: 198px;
+    background-color: #323232;
+    opacity: 80%;
+    font-size: 20px;
+    font-weight: 400;
+    padding: 8px;
+    margin-top: 8px;
+    color: #FFF;
+}
+
+.movieForm-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 40px;
+}
+
+.movieForm-resetButton {
+    margin-right: 16px;
+    background-color: transparent;
+    color: #F65261;
+}
+
+.movieForm-submitButton {
+    background-color: #F65261;
+    color: #FFF;
+}
+
+.movieForm-resetButton,
+.movieForm-submitButton {
+    padding: 12px 24px;
+    border: 1px solid #F65261;
+}
+
+.movieForm-confirmButton {
+    background-color: #F65261;
+    color: #FFF;
+    padding: 12px 24px; 
+}
+
+.movieForm-buttonWrapper {
+    display: flex;
+    justify-content: flex-end;
+}

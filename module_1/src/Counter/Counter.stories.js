@@ -1,10 +1,12 @@
 import Counter from './Counter';
 
-export default {
+const CounterComponent = {
     component: Counter,
     title: 'Counter',
     tags: ['autodocs']
 };
+
+export default CounterComponent;
 
 export const Default = {
     args: {
