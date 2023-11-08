@@ -39,7 +39,7 @@ export const EditMovie = {
     args: {
         title: 'EDIT MOVIE',
         isOpen: true,
-        content: <MovieForm movieData={movieData} onSubmit={()=>{}}/>,
+        content: <MovieForm movieData={movieData} isResultVisible={false} onSubmit={()=>{}}/>,
         onClose: ()=>{}
     }
 };

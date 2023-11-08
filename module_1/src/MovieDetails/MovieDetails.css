@@ -1,19 +1,17 @@
 .movieDetails-container {
     display: flex;
     justify-content: space-between;
+    box-sizing: border-box;
     width: 1200px;
-    padding: 16px;
+    padding: 0 60px 20px 60px;
 }
 
 .movieDetails-info {
     width: 698px;
 }
 
-.movieDetails-name {
-    font-size: 40px;
-}
-
 .movieDetails-genres {
+    margin: 14px 0;
     font-size: 14px;
 }
 
@@ -22,8 +20,14 @@
     color: #F65261;
 }
 
+.movieDetails-header {
+    display: flex;
+    height: 60px;
+}
+
 .movieDetails-name {
     font-size: 40px;
+    margin: 0;
 }
 
 .movieDetails-rating {
@@ -34,6 +38,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 0 0 0 30px;
+    border: 1px solid #FFF;
 }
 
 .movieDetails-characteristics {
