@@ -8,7 +8,7 @@ function MovieTile (props) {
 
     return (
         <div className='movieTile-container' onClick={props.handleClick} onKeyDown={props.handleClick}>
-            <img src={props.movieInfo.imageUrl} width="322" height="455" alt='Movie'/>
+            <img className='movieTile-image' src={props.movieInfo.imageUrl} alt='Movie'/>
             <div className='movieTile-info'>
                 <div>
                     <p className='movieTile-name'>{props.movieInfo.name}</p>

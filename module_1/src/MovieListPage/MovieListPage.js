@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
 import SearchForm from '../SearchForm/SearchForm';
 import MovieTile from '../MovieTile/MovieTile';
 import SortControl from '../SortControl/SortControl';
 import MovieDetails from '../MovieDetails/MovieDetails';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import './MovieListPage.css';
 
 function MovieListPage (props) {
@@ -16,11 +17,20 @@ function MovieListPage (props) {
     const [sortCriterion, setSortCriterion] = useState('release_date');
     const mainGenres = ['ALL', 'DOCUMENTARY', 'COMEDY', 'HORROR', 'CRIME'];
     const [isGenreActive, setIsGenreActive] = useState('ALL');
-    const navigate  = useNavigate();
-    const location = useLocation();
+    const backButton = <FontAwesomeIcon icon={faArrowLeft} />;
+    const moviesUrl = `http://localhost:4000/movies`;
 
     useEffect(()=> {
-        fetch(`http://localhost:4000/movies?sortBy=${sortCriterion}&sortOrder=asc`)
+        fetch(`${moviesUrl}?search=${searchQuery}&searchBy=title`)
+        .then((response) => response.json())
+        .then((json)=> {
+            setMovies(json.data);
+            setTotalMovieAmount(json.data.length);
+        });
+    }, [searchQuery]);
+
+    useEffect(()=> {
+        fetch(`${moviesUrl}?sortBy=${sortCriterion}&sortOrder=asc`)
         .then((response) => response.json())
         .then ((json)=> {
             setMovies(json.data);
@@ -28,31 +38,11 @@ function MovieListPage (props) {
         });
     }, [sortCriterion]);
 
-    useEffect(()=> {
-        if (location.pathname === '/' ) {
-            setIsMovieSelected(false);
-        };
-    }, [location]);
-
-
-    function searchMovie (value) {
-        setTotalMovieAmount(null);
-        fetch(`http://localhost:4000/movies?search=${value}&searchBy=title`)
-        .then((response) => response.json())
-        .then((json)=> {
-            setMovies(json.data);
-            setTotalMovieAmount(json.data.length);
-            setSearchQuery(searchQuery);
-        });
-        
-    };
-
     function getMovieDetails(id) {
-        fetch(`http://localhost:4000/movies/${id}`)
+        fetch(`${moviesUrl}/${id}`)
         .then((response)=> response.json())
         .then((json)=> {
             defineMovieDetails(json);
-            navigate('/movie_details');
         })
     };
 
@@ -66,27 +56,17 @@ function MovieListPage (props) {
         e.preventDefault();
         const selectedGenre = e.currentTarget.innerHTML;
         setIsGenreActive(selectedGenre);
-        const genresTabArr = [];
-        fetch(`http://localhost:4000/movies?sortBy=${sortCriterion}&sortOrder=asc`)
+        let url = moviesUrl;
+        if (selectedGenre !== 'ALL') {
+            url += `?filter=${selectedGenre}`;
+        };
+        fetch(url)
             .then((response) => response.json())
             .then ((json)=> {
                 setMovies(json.data);
                 setTotalMovieAmount(json.data.length);
-                if (selectedGenre!=='ALL') {
-                    json.data.map((item)=> {
-                        const moviesGenres = item.genres;
-                        return moviesGenres.map((genre)=> {
-                            if (selectedGenre=== genre.toUpperCase()) {
-                                return genresTabArr.push(item);
-                            } else return false;
-                            });
-                    });
-                    setMovies(genresTabArr);
-                    setTotalMovieAmount(genresTabArr.length);
-                }
             });
     };
-
 
     return (
 
@@ -94,13 +74,15 @@ function MovieListPage (props) {
                 <div className='MovieListPage-header'>
                     <div className='MovieListPage-addMovieSection'>
                         <span className='MovieListPage-logo'>netflixroulette</span>
-                        <button className='MovieListPage-addMoviebutton'>+ ADD MOVIE</button>
+                        {isMovieSelected? 
+                        (<button onClick={(e)=> setIsMovieSelected(false)}><i className="MovieListPage-backButton">{backButton}</i></button>)
+                        :(<button className='MovieListPage-addMoviebutton'>+ ADD MOVIE</button>)}    
                     </div>
                     {isMovieSelected? 
                     (<MovieDetails movieDetails={movieDetails} />)
                     :(<div className='MovieListPage-findSection'>
                         <p className='MovieListPage-title'>FIND YOUR MOVIE</p>
-                        <SearchForm value={searchQuery} onSearch={(value) => {searchMovie(value)}} />
+                        <SearchForm value={searchQuery} onSearch={(value) => {setSearchQuery(value)}} />
                     </div>)}
                 </div>
                 <div className='MovieListPage-wrapper'>
@@ -109,8 +91,12 @@ function MovieListPage (props) {
                         <div>
                             <ul className='MovieListPage-activeGenres' data-testid='movieListPage-genresTab'>
                                 {mainGenres.map((item, index) =>
-                                    <li onClick={(e)=> filterMovies(e)} className={isGenreActive===item? ('MovieListPage-activeGenresItem'):''}>{item}</li>
-
+                                    <li key={item}
+                                    onClick={(e)=> filterMovies(e)} 
+                                    onKeyDown={(e)=> filterMovies(e)} 
+                                    className={isGenreActive===item? ('MovieListPage-activeGenresItem'):''}>
+                                    {item}
+                                    </li>
                                 )}
                             </ul>
                         </div>
