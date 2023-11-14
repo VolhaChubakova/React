@@ -1,0 +1,103 @@
+.MovieListPage-logo {
+    color:#F65261;
+    font-size: 20px;
+}
+.MovieListPage-addMovieSection {
+    display: flex;
+    justify-content: space-between;
+    padding: 32px 80px;
+}
+
+.MovieListPage-addMoviebutton {
+    background-color: #606060;
+    font-size: 20px;
+    color: #F65261;
+    padding: 8px 12px;
+}
+
+.MovieListPage-backButton {
+    display: block;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+}
+
+.MovieListPage-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 1200px;
+    background-image:url('../../assets/Group_Copy_3.png');
+    color: #FFF;
+}
+
+.MovieListPage-activeGenres {
+    cursor: pointer;
+   padding-left: 0;
+}
+
+.MovieListPage-activeGenres li {
+    display: inline-block;
+    padding: 16px 16px 16px 0px;
+    cursor: pointer;
+}
+
+
+.MovieListPage-activeGenresItem {
+    cursor: pointer;
+    border-bottom: 1px solid red;
+}
+
+.MovieListPage-findSection {
+    height: 396px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.MovieListPage-totalAmount {
+    font-weight: bold;
+}
+
+.MovieListPage-title {
+    margin: 15px 0 15px 180px;
+    align-self: flex-start;
+    font-size: 40px;
+}
+
+.MovieListPage-menu {
+    display: flex;
+    justify-content: space-between;
+}
+
+.MovieListPage-movieItems {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    min-width: 701px;
+    max-width: 1080px;
+}
+
+.MovieListPage-wrapper {
+    width: 1200px;
+    min-height: 500px;
+    box-sizing: border-box;
+    padding: 0px 60px 30px 60px;
+    background-color: #232323;
+    color: #FFF;
+}
+
+.MovieListPage-generalInfo {
+    min-width: 701px;
+}
+
+.MovieListPage-footer {
+    font-size: 20px;
+    color: #F65261;
+    text-align: center;
+    background-color: #424242;
+    width: 1200px;
+    line-height: 70px;
+}

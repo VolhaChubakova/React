@@ -3,15 +3,18 @@ import  './MovieTile.css';
 
 
 function MovieTile (props) {
+    let genresArr = [props.movieInfo.genres].toString();
+    const genreStr = genresArr.replaceAll(',', ', ');
+
     return (
-        <div className='movieTile-container' onClick={props.handleClick}>
-            <img src={props.movieInfo.imageUrl} width="322" height="455" alt='Movie'/>
+        <div className='movieTile-container' onClick={props.handleClick} onKeyDown={props.handleClick}>
+            <img className='movieTile-image' src={props.movieInfo.imageUrl} alt='Movie'/>
             <div className='movieTile-info'>
                 <div>
                     <p className='movieTile-name'>{props.movieInfo.name}</p>
-                    <p className='movieTile-description'>{props.movieInfo.genres}</p>
+                    <p className='movieTile-description'>{genreStr}</p>
                 </div>
-                <p>{props.movieInfo.releaseYear}</p>
+                <p className='movieTile-releaseYear'>{props.movieInfo.releaseYear}</p>
             </div>
         </div>
     )

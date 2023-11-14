@@ -1,11 +1,19 @@
 .movieTile-container {
-    margin: 8px 24px;
+    box-sizing: border-box;
+    margin: 8px 0px;
     width: 322px;
+    height: 600px;
+    cursor: pointer;
 }
 
 .movieTile-info {
     display: flex;
     justify-content: space-between;
+}
+
+.movieTile-image {
+    max-width: 100%;
+    max-height: 100%;
 }
 
 .movieTile-name {
@@ -17,4 +25,13 @@
     font-size: 14px;
     font-weight: 500;
     opacity: 50%;
+}
+
+.movieTile-releaseYear {
+    border: 1px solid #FFF;
+    font-size: 14px;
+    width: 50px;
+    height: 17px;
+    border-radius: 12%;
+    text-align: center;
 }
