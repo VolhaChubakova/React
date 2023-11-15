@@ -1,3 +1,17 @@
+.SearchForm-title {
+    margin: 15px 0 15px 180px;
+    align-self: flex-start;
+    font-size: 40px;
+}
+
+.SearchForm-findSection {
+    height: 396px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
 .SearchForm-input {
     min-width: 600px;
     max-width: 713px;

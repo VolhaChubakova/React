@@ -1,20 +1,17 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './SortControl.css';
 
 
-function SortControl (props) {
-    const [optionsValue, setOptionsValue] = useState(props.defaultValue);
+function SortControl ({defaultValue, onChange, options}) {
     const handleChange = ((e)=> {
-        setOptionsValue(e.target.value);
-        props.onChange(e.target.value);
-
+        onChange(e.target.value);
     });
 
     return (
         <div className='sortControl-containter'>
             <div className='sortControl-descripion'>SORT BY</div>
-            <select className='sortControl-options' value={optionsValue} name='sortControl' onChange={handleChange} data-testid='sortControl-select'>
-                {props.options.map((item, index)=> {
+            <select className='sortControl-options' value={defaultValue} name='sortControl' onChange={handleChange} data-testid='sortControl-select'>
+                {options.map((item, index)=> {
                     return <option key={item} className='sortControl-item' value={item} data-testid={'option_'+index}>{item}</option>
                 })}
             </select>
