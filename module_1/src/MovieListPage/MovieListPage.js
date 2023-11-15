@@ -1,106 +1,108 @@
 import React, {useState, useEffect} from 'react';
-import SearchForm from '../SearchForm/SearchForm';
-import MovieTile from '../MovieTile/MovieTile';
-import SortControl from '../SortControl/SortControl';
-import MovieDetails from '../MovieDetails/MovieDetails';
+import { useNavigate, useSearchParams, useParams, Outlet } from 'react-router-dom';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import MovieTile from '../MovieTile/MovieTile';
+import SortControl from '../SortControl/SortControl';
+
 import './MovieListPage.css';
 
-function MovieListPage (props) {
+function MovieListPage () {
     const [movies, setMovies] = useState(null);
     const [totalMovieAmount, setTotalMovieAmount] = useState(null);
-    const [searchQuery, setSearchQuery] = useState('');
-    const [isMovieSelected, setIsMovieSelected] = useState(false);
-    const [movieDetails, setMovieDetails]= useState({});
     const options = ['RELEASE DATE', 'TITLE'];
-    const [sortCriterion, setSortCriterion] = useState('release_date');
+    const defaultOption = options[0];
+    const [searchParams, setSearchParams] = useSearchParams();
+
+    const [sortCriterion, setSortCriterion] = useState(searchParams.get('sortBy')?.toUpperCase() || defaultOption);
+    const params = useParams();
     const mainGenres = ['ALL', 'DOCUMENTARY', 'COMEDY', 'HORROR', 'CRIME'];
-    const [isGenreActive, setIsGenreActive] = useState('ALL');
-    const backButton = <FontAwesomeIcon icon={faArrowLeft} />;
+    const defaultGenre = mainGenres[0];
+    const [activeGenre, setActiveGenre] = useState(searchParams.get('genre')?.toUpperCase() || defaultGenre);
+    const navigate  = useNavigate();
+    const [searchQuery, setSearchQuery] = useState(searchParams.get('query') || '');
     const moviesUrl = `http://localhost:4000/movies`;
+    const backButton = <FontAwesomeIcon icon={faArrowLeft} />;
+
 
     useEffect(()=> {
-        fetch(`${moviesUrl}?search=${searchQuery}&searchBy=title`)
-        .then((response) => response.json())
-        .then((json)=> {
-            setMovies(json.data);
-            setTotalMovieAmount(json.data.length);
-        });
-    }, [searchQuery]);
-
-    useEffect(()=> {
-        fetch(`${moviesUrl}?sortBy=${sortCriterion}&sortOrder=asc`)
-        .then((response) => response.json())
-        .then ((json)=> {
-            setMovies(json.data);
-            setTotalMovieAmount(json.data.length)
-        });
-    }, [sortCriterion]);
-
-    function getMovieDetails(id) {
-        fetch(`${moviesUrl}/${id}`)
-        .then((response)=> response.json())
-        .then((json)=> {
-            defineMovieDetails(json);
-        })
-    };
-
-    function defineMovieDetails(json) {
-        let {title, genres, poster_path, release_date, vote_average, runtime, overview  } = json;
-            release_date = release_date.slice(0,4);
-            setMovieDetails({poster_path, title, genres, release_date, vote_average, runtime, overview});
-    };
-
-    function filterMovies (e) {
-        e.preventDefault();
-        const selectedGenre = e.currentTarget.innerHTML;
-        setIsGenreActive(selectedGenre);
-        let url = moviesUrl;
-        if (selectedGenre !== 'ALL') {
-            url += `?filter=${selectedGenre}`;
-        };
-        fetch(url)
+        debugger;
+        fetch(getRequestUrl())
             .then((response) => response.json())
-            .then ((json)=> {
+            .then((json)=> {
                 setMovies(json.data);
                 setTotalMovieAmount(json.data.length);
             });
+            updateSearchParams();
+    }, [searchQuery, sortCriterion, activeGenre]);
+
+    function updateSearchParams(){
+        if (searchQuery) {
+            searchParams.set('query', searchQuery);
+        } else {
+            searchParams.delete('query');
+        }
+
+        searchParams.set('sortBy', sortCriterion.toLowerCase().replace(' ', '_'));
+
+        if (activeGenre === defaultGenre) {
+            searchParams.delete('genre');
+        } else {
+            searchParams.set('genre', activeGenre.toLowerCase());
+        }
+        setSearchParams(searchParams);
+    }
+
+    function getMovieDetails(id) {
+        navigate(`/${id}`);
     };
 
-    return (
+    function getRequestUrl(selectedGenre) {
+        let url = moviesUrl;
+        let hasParameter = false;
+        const genre = selectedGenre || activeGenre;
+        if (genre !== 'ALL') {
+            url += `?filter=${genre.toLowerCase()}`;
+            hasParameter = true;
+        };
+        if (searchQuery) {
+            url += hasParameter ? '&' : '?';
+            url += `search=${searchQuery}&searchBy=title`;
+            hasParameter = true;
+        }
+        if (sortCriterion) {
+            url += hasParameter ? '&' : '?';
+            url += `sortBy=${sortCriterion.toLowerCase().replace(' ', '_') }&sortOrder=asc`;
+        }
+        return url;
+    }
 
+    return (
             <>
                 <div className='MovieListPage-header'>
                     <div className='MovieListPage-addMovieSection'>
                         <span className='MovieListPage-logo'>netflixroulette</span>
-                        {isMovieSelected? 
-                        (<button onClick={(e)=> setIsMovieSelected(false)}><i className="MovieListPage-backButton">{backButton}</i></button>)
-                        :(<button className='MovieListPage-addMoviebutton'>+ ADD MOVIE</button>)}    
+                        {params.movieId? 
+                        (<button onClick={(e)=> navigate(`/`)}><i className="MovieListPage-backButton">{backButton}</i></button>):
+                        (<button className='MovieListPage-addMoviebutton'>+ ADD MOVIE</button>)}
                     </div>
-                    {isMovieSelected? 
-                    (<MovieDetails movieDetails={movieDetails} />)
-                    :(<div className='MovieListPage-findSection'>
-                        <p className='MovieListPage-title'>FIND YOUR MOVIE</p>
-                        <SearchForm value={searchQuery} onSearch={(value) => {setSearchQuery(value)}} />
-                    </div>)}
+                    <Outlet context={{value:searchQuery, onSearch: (value) => {setSearchQuery(value)}}}/>
                 </div>
                 <div className='MovieListPage-wrapper'>
-                
                     <div className='MovieListPage-menu'>
                         <div>
                             <ul className='MovieListPage-activeGenres' data-testid='movieListPage-genresTab'>
-                                {mainGenres.map((item, index) =>
-                                    <li key={item}
-                                    onClick={(e)=> filterMovies(e)} 
-                                    onKeyDown={(e)=> filterMovies(e)} 
-                                    className={isGenreActive===item? ('MovieListPage-activeGenresItem'):''}>
-                                    {item}
+                                {mainGenres.map((item) =>
+                                    <li key={item} 
+                                        onClick={(event)=>  setActiveGenre(event.currentTarget.innerHTML)} 
+                                        onKeyDown={(event)=> setActiveGenre(event.currentTarget.innerHTML)} 
+                                        className={(activeGenre===item? ('MovieListPage-activeGenresItem'):'')}>
+                                        {item}
                                     </li>
                                 )}
                             </ul>
                         </div>
-                        <SortControl options={options} defaultValue={sortCriterion} onChange={(value)=>{setSortCriterion(value.toLowerCase().replace(' ', '_'))}}/>
+                        <SortControl options={options} key={sortCriterion} defaultValue={sortCriterion} onChange={(value)=>{setSortCriterion(value)}}/>
                     </div>
                     <p><span className='MovieListPage-totalAmount'>{totalMovieAmount}</span> movies found</p>
                     <div className='MovieListPage-generalInfo'>
@@ -115,7 +117,6 @@ function MovieListPage (props) {
                                         genres:item.genres
                                     }
                                     } handleClick={(e)=> {
-                                        setIsMovieSelected(true);
                                         getMovieDetails(item.id);
                                     }}/>
                                     )

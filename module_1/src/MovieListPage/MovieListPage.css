@@ -48,22 +48,8 @@
     border-bottom: 1px solid red;
 }
 
-.MovieListPage-findSection {
-    height: 396px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-}
-
 .MovieListPage-totalAmount {
     font-weight: bold;
-}
-
-.MovieListPage-title {
-    margin: 15px 0 15px 180px;
-    align-self: flex-start;
-    font-size: 40px;
 }
 
 .MovieListPage-menu {
