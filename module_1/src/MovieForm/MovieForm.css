@@ -16,7 +16,7 @@
 .movieForm-runtime {
     display: block;
     padding: 18px;
-    margin: 8px 0 24px 0;
+    margin: 8px 0 32px 0;
     background-color: #323232;
     color: #FFF;
     opacity: 80%;
@@ -45,15 +45,6 @@
 
 .movieForm-calendarWrapper {
     position: relative;
-}
-
-.movieForm-calendarIcon {
-    position: absolute;
-    top: 22px;
-    right: 16px;
-    color: #F65261;
-    cursor: pointer;
-    z-index: 1;
 }
 
 .movieForm-calendar {
@@ -106,4 +97,28 @@
 .movieForm-buttonWrapper {
     display: flex;
     justify-content: flex-end;
+}
+
+.movieForm-errorMessage{
+    font-size: 14px;
+    color:#F65261;
+    margin: -24px 0px 24px 0px;
+}
+
+.movieForm-errorMessage--genre,
+.movieForm-errorMessage--overview
+ {
+    font-size: 14px;
+    color:#F65261;
+    margin: 8px 0px 24px 0px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+        display: none;
+}
+
+::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    opacity: 1;
 }

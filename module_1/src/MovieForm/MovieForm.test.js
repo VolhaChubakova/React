@@ -18,8 +18,8 @@ describe('MovieForm', ()=>{
     it ('renders component with passed object', async ()=> {
         const someFunc = jest.fn();
         render(<MovieForm movieData={movieData} onSubmit={someFunc}/>);
-        expect(screen.getByTestId('movieFormTitle').value).toEqual(movieData.title);
-        expect(screen.getByTestId('movieFormUrl').value).toEqual(movieData.url);
+        expect(screen.getByTestId('title').value).toEqual(movieData.title);
+        expect(screen.getByTestId('url').value).toEqual(movieData.url);
         const user = userEvent.setup();
         await act(async()=> {
             await user.click(screen.getByTestId('GenreSelect-dropdown'));
@@ -28,10 +28,10 @@ describe('MovieForm', ()=>{
             let checkboxes = screen.getAllByRole('checkbox');
             expect(checkboxes[3]).toBeChecked();
         })
-        expect(screen.getByTestId('movieFormRelease').value).toEqual(movieData.releaseDate);
-        expect(screen.getByTestId('movieFormRating').value).toEqual(movieData.rating.toString());
-        expect(screen.getByTestId('movieFormRuntime').value).toEqual(movieData.runtime);
-        expect(screen.getByTestId('movieFormOverview').value).toEqual(movieData.overview);
+        expect(screen.getByTestId('releaseDate').value).toEqual(movieData.releaseDate);
+        expect(screen.getByTestId('vote_average').value).toEqual(movieData.rating.toString());
+        expect(screen.getByTestId('runtime').value).toEqual(movieData.runtime);
+        expect(screen.getByTestId('overview').value).toEqual(movieData.overview);
     });
 
     test ('reset button cleans all fields', async ()=> {
@@ -41,8 +41,8 @@ describe('MovieForm', ()=>{
         await act(async()=> {
             await user.click(screen.getByTestId('resetButton'));
         });
-        expect(screen.getByTestId('movieFormTitle').value).toEqual('');
-        expect(screen.getByTestId('movieFormUrl').value).toEqual('');
+        expect(screen.getByTestId('title').value).toEqual('');
+        expect(screen.getByTestId('url').value).toEqual('');
         await act(async()=> {
             await user.click(screen.getByTestId('GenreSelect-dropdown'));
         });
@@ -50,10 +50,10 @@ describe('MovieForm', ()=>{
             let checkboxes = screen.getAllByRole('checkbox');
             expect(checkboxes[3]).not.toBeChecked();
         })
-        expect(screen.getByTestId('movieFormRelease').value).toEqual('');
-        expect(screen.getByTestId('movieFormRating').value).toEqual('');
-        expect(screen.getByTestId('movieFormRuntime').value).toEqual('');
-        expect(screen.getByTestId('movieFormOverview').value).toEqual('');
+        expect(screen.getByTestId('release').value).toEqual('');
+        expect(screen.getByTestId('vote_average').value).toEqual('');
+        expect(screen.getByTestId('runtime').value).toEqual('');
+        expect(screen.getByTestId('overview').value).toEqual('');
     });
 
     test ('callback function is called after click on submit button', async ()=> {

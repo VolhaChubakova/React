@@ -13,12 +13,15 @@ function GenreSelect (props) {
     }
 
     function handleClick(e, val) {
+        let values = [];
         if (e.target.checked) {
-            setCurrentlySelectedArr(currentlySelectedArr => [...currentlySelectedArr, val]);
+            values = [...currentlySelectedArr, val];
             props.onSelect(val);
         } else {
-            setCurrentlySelectedArr(currentlySelectedArr => currentlySelectedArr.filter((item) => item !== val));
-        }     
+            values = currentlySelectedArr.filter((item) => item !== val);
+        };
+        setCurrentlySelectedArr(values);
+        props.onCurrentlySelectedUpdated?.(values);
     }
 
     return (<div className='GenreSelect-wrapper'>
@@ -28,6 +31,7 @@ function GenreSelect (props) {
                 className='GenreSelect-button'
                 data-testid='GenreSelect-dropdown'
                 onClick={() => {showItems()}}
+                type='button'
             >
                 Select Genre <IconContext.Provider value={{ className: 'GenreSelect-icon' }}>
                     {isOpened ? (
