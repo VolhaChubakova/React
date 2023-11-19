@@ -3,7 +3,92 @@
     margin: 8px 0px;
     width: 322px;
     height: 600px;
+}
+
+.movieTile-container:hover {
+    .movieTile-editIcon {
+        display: block;
+    }
+}
+
+.movieTile-imageContainer {
+    position: relative;
+}
+
+.movieTile-editIcon {
+    position: absolute;
+    box-sizing: border-box;
+    top: 16px;
+    right: 16px;
+    border: 1px solid #2A202D;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    padding: 5px;
+    text-align: center;
+    line-height: 25px;
+    background-color:#2A202D;
     cursor: pointer;
+}
+
+.movieTile-editIcon:hover {
+    cursor: pointer;
+}
+
+.movieTile-closeIcon {
+    position: relative;
+    left: 84%;
+
+
+    width: 36px;
+    padding: 4px;
+
+
+
+    cursor: pointer;
+}
+
+.movieTile-closeIconWrapper {
+    position: absolute;
+    top: 0px;
+    right: 16px;
+    width: 190px;
+    line-height: 36px;
+    background-color: #232323; 
+}
+
+.movieTile-dropDown {
+    position: absolute;
+    top: 35px;
+    right: 16px;
+    padding-left: 0;
+    background-color: #232323;
+    cursor: pointer;
+    z-index: 3;
+}
+
+.movieTile-dropDown:hover {
+    cursor: pointer;
+}
+
+.movieTile-dropDown li {
+    list-style-type: none;
+}
+
+.movieTile-dropDown button {
+    box-sizing: border-box;
+    min-width: 190px;
+    font-size: 16px;
+    padding: 8px 16px;
+    cursor: pointer;
+    background-color: #232323;
+    color: #FFFFFF;
+    border: none;
+    text-align: left;
+}
+
+.movieTile-dropDown button:hover {
+    background-color: #F65261;
 }
 
 .movieTile-info {

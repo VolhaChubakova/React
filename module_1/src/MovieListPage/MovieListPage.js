@@ -26,7 +26,6 @@ function MovieListPage () {
 
 
     useEffect(()=> {
-        debugger;
         fetch(getRequestUrl())
             .then((response) => response.json())
             .then((json)=> {
@@ -84,7 +83,7 @@ function MovieListPage () {
                         <span className='MovieListPage-logo'>netflixroulette</span>
                         {params.movieId? 
                         (<button onClick={(e)=> navigate(`/`)}><i className="MovieListPage-backButton">{backButton}</i></button>):
-                        (<button className='MovieListPage-addMoviebutton'>+ ADD MOVIE</button>)}
+                        (<button onClick={(e)=> navigate(`/new`)} className='MovieListPage-addMoviebutton'>+ ADD MOVIE</button>)}
                     </div>
                     <Outlet context={{value:searchQuery, onSearch: (value) => {setSearchQuery(value)}}}/>
                 </div>
@@ -114,7 +113,8 @@ function MovieListPage () {
                                         imageUrl:item.poster_path,
                                         name: item.title,
                                         releaseYear:item.release_date.slice(0,4),
-                                        genres:item.genres
+                                        genres:item.genres,
+                                        id:item.id
                                     }
                                     } handleClick={(e)=> {
                                         getMovieDetails(item.id);
